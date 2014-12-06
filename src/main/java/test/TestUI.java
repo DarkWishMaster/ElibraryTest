@@ -13,47 +13,40 @@ public class TestUI {
 	public Object[][] dataProvider()
 	{
 		return new Object[][] {
-				new Object[]{"user@alliedtesting.com", "123", true},
-				new Object[]{"user@alliedtesting.com", "321", false},
-				new Object[]{"user@alliedtesting.com", "", false},
-				new Object[]{"worker@alliedtesting.com", "123", true},
-				new Object[]{"worker@alliedtesting.com", "321", false},
-				new Object[]{"worker@alliedtesting.com", "", false},
-				new Object[]{"superuser@alliedtesting.com", "123", true},
-				new Object[]{"superuser@alliedtesting.com", "321", false},
-				new Object[]{"superuser@alliedtesting.com", "", false},
-				new Object[]{"", "123", false},
-				new Object[]{"", "", false}
+				new Object[]{"user@alliedtesting.com", "123"},
+				new Object[]{"user@alliedtesting.com", "321"},
+				new Object[]{"user@alliedtesting.com", ""},
+				new Object[]{"worker@alliedtesting.com", "123"},
+				new Object[]{"worker@alliedtesting.com", "321"},
+				new Object[]{"worker@alliedtesting.com", ""},
+				new Object[]{"superuser@alliedtesting.com", "123"},
+				new Object[]{"superuser@alliedtesting.com", "321"},
+				new Object[]{"superuser@alliedtesting.com", ""},
+				new Object[]{"invalid_login", "123"},
+				new Object[]{"invalid_login", "invalid_password"},
+				new Object[]{"", "123"},
+				new Object[]{"", ""}
 		};
 	}
 	
-	@Test(dataProvider = "userprovider")
-	public static void TestLogin(String user, String password, boolean pass){
+	@Test(dataProvider = "userprovider") 
+	public static void TestLogin(String user, String password)
+			throws Exception{
 		
 		HomePage home = new HomePage();
 		
 		home.openPage();
 		home.clickSignInBtn();
 		home.loginAs(user, password);
-		if (pass)
-			Assert.assertEquals(user, home.getLogged(), "Not logged in!");
-		else
-		{
-			String logged;
-			try {
-			    logged = home.getLogged();
-			} catch (Exception e)
-			{
-				logged = "EXCEPTION";
-			}
-			Assert.assertNotEquals(user, logged, "You can't be logged in!");
-		}
 		
-		try {
-			home.clickSignOutBtn();
-		} catch (Exception e)
-		{
-
-		}
+		Assert.assertEquals(user, home.getLogged(), "Not logged in!");
+		
+		home.clickSignOutBtn();
 	}
+	
+	
+
+	
+	
+
 }
