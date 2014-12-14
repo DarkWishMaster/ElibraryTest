@@ -3,6 +3,10 @@ package test;
 
 
 
+/*
+ * Homework, add logger and reports to a test 
+ * 	+ Listener to generate HTML with some styles/css ok
+ */
 
 import org.apache.log4j.Logger;
 import org.testng.Assert;
@@ -32,6 +36,8 @@ public class test {
 		logger.debug("DEBUG");
 		logger.info("INFO");
 		logger.error("ERROR");
+		logger.info("INIT");
+		
 		Reporter.log("Start test\n");
 	}
 	
